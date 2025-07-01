@@ -1,0 +1,8 @@
+-- Seleciona músicas que estejam em álbuns do artista que tem id = 12 (consulta na tabela tracks com sub consulta na tabela albums)
+
+select Name, AlbumId, Milliseconds
+from tracks
+where AlbumId in
+(select AlbumId
+from albums
+where ArtistId = 12)
