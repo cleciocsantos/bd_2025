@@ -1,0 +1,71 @@
+/*Questão 1*/
+select FirstName, LastName
+from customers
+where Country = 'Brazil'
+and City in ('Rio de Janeiro', 'São Paulo');
+
+/*Questão 2*/
+select FirstName, LastName
+from employees
+where Country = 'Canada'
+and Title in ('Sales Support Agent', 'Sales Manager');
+
+/*Questão 3*/
+select FirstName, LastName
+from customers
+where LastName like 'P%';
+
+/*Questão 4*/
+select AlbumId, title
+from albums
+where AlbumId BETWEEN 10 AND 20;
+
+/*Questão 5*/
+select distinct Country
+from customers;
+
+/*Questão 6*/
+select invoiceDate, BillingAddress, Total
+from invoices
+order by total desc
+limit 3;
+
+/*Questão 7*/
+select name
+from artists
+where ArtistId in (
+select artistId
+from albums
+);
+
+/*Questão 8*/
+select FirstName, Lastname
+from customers
+where customerId in (
+select customerId
+from invoices
+where Total > 9
+);
+
+/*Questão 9*/
+select name
+from tracks
+where trackId in (
+	select trackId
+	from playlist_track
+	where playlistId in (
+		select playlistId
+		from playlists
+		where name like '%Classical%'
+	)
+);
+
+/*Questão 10*/
+select distinct title
+from albums
+where albumId in (
+	select albumId
+	from tracks
+	where milliseconds > 180000
+);
+
