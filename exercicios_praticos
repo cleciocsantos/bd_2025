@@ -1,0 +1,8 @@
+1) Liste o ID do álbum e o número de faixas por álbum. (tabela tracks, Count, Group By)
+2) Ordene o item anterior do maior para o menor número de faixas. (Order By)
+3) Modifique o item anterior para exibir também o título dos álbuns. (Inner Join, table albums)
+4) Modifique o item anterior para exibir apenas os álbuns com mais de 15 faixas. (having)
+5) Liste o ID do álbum, a duração total e o tamanho em bytes de cada álbum. (tabela tracks, Group By, Sum)
+6) Liste o ID do álbum, o título do álbum, a duração máxima, a duração mínima e a duração média das faixas. (Min, Max, Avg)
+7) Liste a quantidade de faixas por tipo de mídia e gênero (Group By em duas colunas)
+8) Liste o número de faturas por ano, ordenando do ano mais antigo para o mais atual. (tabela invoices, STRFTIME)
