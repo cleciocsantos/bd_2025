@@ -6,3 +6,48 @@
 6) Liste o ID do álbum, o título do álbum, a duração máxima, a duração mínima e a duração média das faixas. (Min, Max, Avg)
 7) Liste a quantidade de faixas por tipo de mídia e gênero (Group By em duas colunas)
 8) Liste o número de faturas por ano, ordenando do ano mais antigo para o mais atual. (tabela invoices, STRFTIME)
+
+/* Questão 1 */
+select 
+	AlbumId, 
+	COUNT(trackid) as QTD_Musicas
+from tracks
+group by AlbumId;
+
+/* Questão 2 */
+select 
+	AlbumId, 
+	COUNT(trackid) as QTD_Musicas
+from tracks
+group by AlbumId
+order by COUNT(trackid) DESC;
+
+/* Questão 3 */
+select 
+	tracks.AlbumId,
+	title, 
+	COUNT(trackid) as QTD_Musicas
+from tracks
+INNER JOIN albums ON albums.albumid = tracks.albumid
+group by tracks.AlbumId
+order by COUNT(trackid) DESC;
+
+/* Questão 4 */
+select 
+	tracks.AlbumId,
+	title, 
+	COUNT(trackid) as QTD_Musicas
+from tracks
+INNER JOIN albums using(albumId)
+group by tracks.AlbumId
+having COUNT(trackid) > 15
+order by COUNT(trackid) DESC;
+
+/* Questão 5*/
+select 
+	AlbumId,
+	SUM(Milliseconds)/1000/60 as duracao_minutos,
+	SUM(Bytes) as tamanho
+from tracks
+group by AlbumId
+limit 10;
