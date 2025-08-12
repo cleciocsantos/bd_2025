@@ -11,3 +11,53 @@ As questões abaixo devem ser respondidas usando o banco de dados chinook.db.
 7) Liste os nomes das faixas do álbum de AlbumId = 10.
 8) Liste os nomes das faixas e títulos dos álbuns de AlbumId entre 5 e 7.
 9 - Extra) Liste os nomes das faixas e títulos dos álbuns de artistas cujos nomes começam com "Chico".
+
+GABARITO:
+
+/* Questão 1 */
+select 
+	name as Artista, 
+	COUNT(albumId) as Álbuns
+from artists
+inner join albums using (artistId)
+group by artistId;
+
+/* Questão 2 */
+select 
+	name as Artista, 
+	COUNT(albumId) as Álbuns
+from artists
+inner join albums using (artistId)
+group by artistId
+order by Álbuns desc
+limit 15;
+
+/* Questão 3 */
+select 
+	name as Artista, 
+	COUNT(albumId) as Álbuns
+from artists
+inner join albums using (artistId)
+group by artistId
+order by Álbuns desc
+limit 15 offset 15;
+
+/* Questão 4 */
+select 
+	name as Artista, 
+	COUNT(albumId) as Álbuns
+from artists
+inner join albums using (artistId)
+group by artistId
+having Álbuns >= 3
+order by Álbuns;
+
+/* Questão 5 */
+select 
+	Concat(FirstName,' ',LastName) as Cliente, 
+	Max(Total) as Maior_fatura,
+	Min(Total) as Menor_fatura,
+	Avg(Total) as Valor_medio_fatura
+from customers
+inner join invoices using (customerId)
+group by customerId;
