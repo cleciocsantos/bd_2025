@@ -1,0 +1,13 @@
+Atividade Avaliativa 3 (2,0 pontos) - Grupos de 3 pessoas
+
+As questões abaixo devem ser respondidas usando o banco de dados chinnok.db.
+
+1) Liste os nomes dos artistas e a quantidade de álbuns que eles gravaram.
+2) Liste os 15 artistas com mais álbuns gravados, do que gravou mais para o que gravou menos.
+3) Liste os próximos 15 artistas com mais álbuns gravados (ou seja do 16° ao 30°).
+4) Liste todos os artistas que gravaram 3 ou mais álbuns, do que gravou menos para o que gravou mais.
+5) Liste os nomes dos clientes, o valor máximo, o valor médio e o valor mínimo das suas faturas.
+6) Liste o id e o nome dos artistas que não possuem álbuns.
+7) Liste os nomes das faixas do álbum de AlbumId = 10.
+8) Liste os nomes das faixas e títulos dos álbuns de AlbumId entre 5 e 7.
+9 - Extra) Liste os nomes das faixas e títulos dos álbuns de artistas cujos nomes começam com "Chico".
