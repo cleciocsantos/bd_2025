@@ -78,3 +78,24 @@ select
 	name
 from tracks
 where albumId = 10;
+
+/* Questão 8 */
+select 
+	AlbumId,
+	name as Faixa,
+	title as Álbum
+from tracks
+inner join albums using(AlbumId)
+where albumId between 5 and 7;
+
+/* Questão 9 */
+select 
+	name as Faixa,
+	title as Álbum
+from tracks
+inner join albums using(AlbumId)
+where artistId in (
+	select artistId
+	from artists
+	where name like 'Chico%'
+);
