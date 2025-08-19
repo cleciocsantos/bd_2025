@@ -1,10 +1,11 @@
 1. Leia o enunciado abaixo e faça o que se pede: 
 O dono de uma rede de lojas contratou você para fazer um sistema de banco de dados para administrar clientes e funcionários.  
 Cada cliente deve ter um código identificador, nome e CPF. Cada loja deve ter um código identificador, nome, bairro e cidade. 
-Cada cliente frequenta uma única loja, mas cada loja pode ter vários clientes frequentes. Cada funcionário deve ter um código identificador, nome e o ano de admissão. 
-Um funcionário trabalha em apenas uma loja, mas cada loja tem vários funcionários. Cada loja tem também um supervisor que, por sua vez, pode supervisionar várias lojas. 
+Cada cliente frequenta uma única loja, mas cada loja pode ter vários clientes frequentes. 
+Cada funcionário deve ter um código identificador, nome e o ano de admissão. 
+Um funcionário trabalha em apenas uma loja, mas cada loja tem vários funcionários. 
+Cada loja tem também um supervisor que, por sua vez, pode supervisionar várias lojas. 
 Um supervisor tem um código identificador, nome e cargo.
-
 a)	Liste as entidades identificadas:
 b)	Liste os relacionamentos entre as entidades:
 c)	Crie o diagrama de entidade-relacionamento (representando entidades, atributos, relacionamentos e razões de cardinalidade).
