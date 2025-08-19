@@ -1,0 +1,21 @@
+1. Leia o enunciado abaixo e faça o que se pede: 
+O dono de uma rede de lojas contratou você para fazer um sistema de banco de dados para administrar clientes e funcionários.  
+Cada cliente deve ter um código identificador, nome e CPF. Cada loja deve ter um código identificador, nome, bairro e cidade. 
+Cada cliente frequenta uma única loja, mas cada loja pode ter vários clientes frequentes. Cada funcionário deve ter um código identificador, nome e o ano de admissão. 
+Um funcionário trabalha em apenas uma loja, mas cada loja tem vários funcionários. Cada loja tem também um supervisor que, por sua vez, pode supervisionar várias lojas. 
+Um supervisor tem um código identificador, nome e cargo.
+
+a)	Liste as entidades identificadas:
+b)	Liste os relacionamentos entre as entidades:
+c)	Crie o diagrama de entidade-relacionamento (representando entidades, atributos, relacionamentos e razões de cardinalidade).
+
+2. Faça o mapeamento do Diagrama de Entidade-Relacionamento anterior para o Modelo Relacional, descrevendo as tabelas e suas colunas. 
+Onde houver chave-primária indique com a sigla (PK) e onde houver chave-estrangeira indique com a sigla (FK).
+
+3. Crie código SQL para fazer as seguintes consultas no banco de dados que você criou: 
+a)	Listar os nomes e CPFs de todos os clientes da loja cujo código identificador é 15. 
+b)	Listar os nomes e os bairros de todos as lojas cujo nome da cidade termina com a palavra “Caxias”.
+c)	Listar os nomes de todos os funcionários contratados entre 2021 e 2024. 
+d)	Listar os nomes de todos os funcionários que trabalham em lojas do bairro “Centenário”. 
+e)	Listar os nomes de todas as lojas e quantidade de funcionários que tem nelas.
+f)	Refaça o item anterior para exibir apenas lojas com mais de 10 funcionários, ordenando da loja com mais funcionários para a que tem menos.
