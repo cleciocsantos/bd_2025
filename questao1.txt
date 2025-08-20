@@ -1,5 +1,0 @@
-select BillingAddress, BillingCity, Total
-from invoices
-where BillingCity = 'New York' 
-AND Total > 5
-order by Total;

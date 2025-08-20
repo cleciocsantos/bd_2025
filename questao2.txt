@@ -1,9 +1,0 @@
-select BillingAddress, BillingCity, Total
-from invoices
-where (BillingCity = 'Paris' or BillingCity = 'Berlin') AND Total > 5;
-
--- Uma versão alternativa:
-
-select BillingAddress, BillingCity, Total
-from invoices
-where BillingCity in ('Paris','Berlin') AND Total > 5;

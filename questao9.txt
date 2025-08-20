@@ -1,6 +1,0 @@
-select trackid, albumid, name, milliseconds
-from tracks
-where albumid in 
-(select albumid
-from albums
-where artistid = 8);

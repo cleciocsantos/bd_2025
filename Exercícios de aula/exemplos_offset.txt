@@ -1,0 +1,28 @@
+-- Traz as 10 músicas de maior duração (sem offset):
+
+select Name, Milliseconds
+from tracks
+order by Milliseconds desc
+limit 10;
+
+-- Agora traz as próximas 10 músicas de maior duração (da 11ª a 20ª):
+
+select Name, Milliseconds
+from tracks
+order by Milliseconds desc
+limit 10 offset 10; -- o número n depois do offset significa que o resultado começa da (n+1)º posição na ordem. Ou seja, offset 10 significa que vai exibir da 11ª música.
+
+-- Agora traz as próximas 10 músicas de maior duração (da 21ª a 30ª):
+
+select Name, Milliseconds
+from tracks
+order by Milliseconds desc
+limit 10 offset 20; -- offset 20 significa que vai exibir a partir da 21ª música.
+
+-- Agora traz apenas a 10º música de maior duração:
+
+select Name, Milliseconds
+from tracks
+order by Milliseconds desc
+limit 1 offset 9; -- offset 9 significa que vai exibir a partir da 10ª música. E limit 1 significa que só vai exibir uma única música.
+

@@ -1,6 +1,0 @@
-select *
-from albums
-where artistid in
-(select artistid
-from artists
-where name like '%man%');

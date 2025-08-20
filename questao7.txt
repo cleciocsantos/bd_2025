@@ -1,3 +1,0 @@
-select name, artistid
-from artists
-where name like 'Ba%';
