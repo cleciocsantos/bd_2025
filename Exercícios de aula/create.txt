@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS aluno (
+  id_aluno integer primary key,
+  matricula text UNIQUE,
+  nome text NOT NULL,
+  data_nasc text NOT NULL,
+  serie INTEGER,
+  media REAL
+);
+
+INSERT INTO aluno (matricula, nome, data_nasc, serie)
+VALUES ('m01110', 'Moisés','2025-09-08',3),
+('m01112', 'Arthur','2025-09-08',2),
+('m01113', 'Alexandra','2025-09-08',2);
+
+
+
+
+  
