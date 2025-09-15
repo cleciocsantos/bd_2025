@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = ON;
+
 DROP TABLE IF EXISTS aluno;
 
 CREATE TABLE IF NOT EXISTS aluno (
@@ -6,7 +8,11 @@ CREATE TABLE IF NOT EXISTS aluno (
   nome text NOT NULL,
   data_nasc text NOT NULL,
   serie INTEGER,
-  media REAL
+  media REAL,
+  id_turma integer,
+  FOREIGN KEY (id_turma)
+  references turma(id_turma)
+  ON DELETE CASCADE
 );
 
 INSERT INTO aluno (matricula, nome, data_nasc, serie)
@@ -19,8 +25,21 @@ UPDATE aluno
 SET media = 8
 WHERE serie < 3;
 
+DELETE FROM aluno
+WHERE id_aluno = 2;
 
+DROP TABLE IF EXISTS turma;
 
+CREATE TABLE turma (
+ id_turma integer primary key,
+ sigla text NOT NULL,
+ turno text,
+ modalidade text
+);
+
+INSERT INTO turma (sigla, turno, modalidade)
+values ('DS202', 'Vespertino', 'Integrado'), 
+('DS302', 'Vespertino', 'Integrado');
 
 
   
