@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS aluno (
   id_turma integer,
   FOREIGN KEY (id_turma)
   references turma(id_turma)
-  ON DELETE CASCADE
+  ON DELETE SET NULL
 );
 
 INSERT INTO aluno (matricula, nome, data_nasc, serie)
@@ -40,6 +40,15 @@ CREATE TABLE turma (
 INSERT INTO turma (sigla, turno, modalidade)
 values ('DS202', 'Vespertino', 'Integrado'), 
 ('DS302', 'Vespertino', 'Integrado');
+
+UPDATE aluno
+SET id_turma = 1
+WHERE serie = 2;
+
+UPDATE aluno
+SET id_turma = 2
+WHERE serie = 3;
+
 
 
   

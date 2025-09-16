@@ -1,0 +1,2 @@
+select * from aluno;
+select * from turma;
