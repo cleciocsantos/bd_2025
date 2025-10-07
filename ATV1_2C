@@ -1,0 +1,28 @@
+BANCO DE DADOS
+
+2ª CERTIFICAÇÃO
+
+ATIVIDADE AVALIATIVA 1 - 2,0 PONTOS - GRUPOS DE 3 PESSOAS
+
+Você foi contratado para modelar parte de um sistema de biblioteca. O sistema precisa armazenar informações sobre autores, livros e empréstimos realizados para usuários. 
+Cada livro tem um autor, mas cada autor pode escrever vários livros. Cada usuário pode pegar vários livros emprestados e cada livro pode estar emprestado para vários usuários. 
+De cada livro, nos interessa saber título e ano de publicação. De cada autor, seu nome. De cada usuário, nome e e-mail. E de cada empréstimo, a data do empréstimo e a data da devolução.
+
+1. Liste as entidades identificadas.
+2. Liste os relacionamentos.
+3. Monte o diagrama de Entidade-Relacionamento (entidades, relacionamentos, atributos e razões de cardinalidade)
+4. Faça o mapeamento do diagrama para as tabelas do Modelo Relacional (sinalize as chaves primárias e as chaves estrangeiras com as siglas PK e FK, respectivamente)
+5. Crie as tabelas no SQLite, num banco de dados chamado atv1_2c.db (antes de criar cada tabela, insira um comando para remover a tabela caso ela já exista).
+6. Insira 4 autores, 8 livros, 3 usuários e 5 empréstimos.
+7. Atualize a data de devolução de um dos empréstimos.
+8. Exclua um livro que ainda não tenha sido emprestado.
+9. Realize as seguintes consultas:
+  a. Liste todos os livros com seus respectivos autores.
+  b. Liste apenas os livros publicados depois de 2010.
+  c. Mostre quais usuários realizaram empréstimos e os títulos dos livros emprestados.
+  d. Liste os empréstimos que ainda não foram devolvidos.
+  e. Conte quantos livros cada autor possui cadastrados.
+
+Atenção: os códigos das questões 5 a 9 devem ser escritos num único arquivo chamado atv1_2c.txt e enviado por e-mail ao professor. No início do arquivo, deve ter um comentário com os nomes dos integrantes do grupo.
+
+
