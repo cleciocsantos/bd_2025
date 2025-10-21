@@ -1,27 +1,60 @@
-/* Exemplo de Servidor Web que envia um HTML a partir de um modelo */
+const express = require("express");
+const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
 
-const express = require('express');
 const app = express();
-const port = 8080;
+const PORT = 8080;
 
-// Set the view engine to EJS
-app.set('view engine', 'ejs');
+// Middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-// Set the directory where templates are located
-app.set('views', './views');
+// Conexão com o banco de dados
+const db = new sqlite3.Database("./database.db");
 
-// Route that renders a template
-app.get('/', (req, res) => {
-  const data = {
-    title: 'DS202',
-    message: 'Bem-vindos à DS202!',
-    items: ['Banco de Dados (SQL)', 'Back-End (Node.JS)', 'Front-End (HTML, CSS, JS)']
-  };
+// Cria tabela se não existir
+db.run(`
+  CREATE TABLE IF NOT EXISTS produtos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    preco REAL NOT NULL
+  )
+`);
 
-  // Renders the views/index.ejs template
-  res.render('index', data);
+// Rota para cadastrar produto
+app.post("/api/produtos", (req, res) => {
+  const { nome, preco } = req.body;
+  if (!nome || !preco) {
+    return res.status(400).json({ error: "Nome e preço são obrigatórios" });
+  }
+
+  const stmt = db.prepare("INSERT INTO produtos (nome, preco) VALUES (?, ?)");
+  stmt.run(nome, preco, function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao inserir produto" });
+    }
+    res.json({ id: this.lastID, nome, preco });
+  });
+  stmt.finalize();
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+// Rota para listar produtos (com filtro opcional por nome)
+app.get("/api/produtos", (req, res) => {
+  const filtro = req.query.nome ? `%${req.query.nome}%` : "%";
+  db.all(
+    "SELECT * FROM produtos WHERE nome LIKE ? ORDER BY id DESC",
+    [filtro],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: "Erro ao consultar produtos" });
+      }
+      res.json(rows);
+    }
+  );
+});
+
+// Inicia servidor
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

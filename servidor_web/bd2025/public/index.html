@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Produtos</title>
+  <style>
+    body { font-family: Arial; margin: 30px; }
+    form, .filtro { margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
+    th { background: #eee; }
+    input[type="text"], input[type="number"] { padding: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Cadastro de Produtos</h1>
+
+  <form id="formProduto">
+    <label>Nome:</label>
+    <input type="text" id="nome" required />
+    <label>Preço:</label>
+    <input type="number" id="preco" required step="0.01" />
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <div class="filtro">
+    <label>Pesquisar por nome:</label>
+    <input type="text" id="pesquisa" placeholder="Digite o nome do produto..." />
+  </div>
+
+  <table id="tabela">
+    <thead>
+      <tr><th>ID</th><th>Nome</th><th>Preço (R$)</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    async function carregarProdutos(filtro = "") {
+      const res = await fetch(`/api/produtos?nome=${encodeURIComponent(filtro)}`);
+      const produtos = await res.json();
+      const tbody = document.querySelector("#tabela tbody");
+      tbody.innerHTML = "";
+
+      produtos.forEach(p => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td>${p.id}</td><td>${p.nome}</td><td>${p.preco.toFixed(2)}</td>`;
+        tbody.appendChild(row);
+      });
+    }
+
+    document.querySelector("#formProduto").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nome = document.querySelector("#nome").value;
+      const preco = document.querySelector("#preco").value;
+
+      await fetch("/api/produtos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, preco }),
+      });
+
+      e.target.reset();
+      carregarProdutos();
+    });
+
+    document.querySelector("#pesquisa").addEventListener("input", (e) => {
+      carregarProdutos(e.target.value);
+    });
+
+    carregarProdutos();
+  </script>
+</body>
+</html>
