@@ -30,7 +30,7 @@
 
   <table id="tabela">
     <thead>
-      <tr><th>ID</th><th>Nome</th><th>Preço (R$)</th></tr>
+      <tr><th>ID</th><th>Nome</th><th>Preço (R$)</th><th>Opções</th></tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -44,7 +44,13 @@
 
       produtos.forEach(p => {
         const row = document.createElement("tr");
-        row.innerHTML = `<td>${p.id}</td><td>${p.nome}</td><td>${p.preco.toFixed(2)}</td>`;
+        row.innerHTML = `
+        <td>${p.id}</td>
+        <td>${p.nome}</td>
+        <td>${p.preco.toFixed(2)}</td>
+        <td>
+            <button onclick="excluirProduto(${p.id})">Excluir</button>
+        </td>`;
         tbody.appendChild(row);
       });
     }
@@ -54,10 +60,15 @@
       const nome = document.querySelector("#nome").value;
       const preco = document.querySelector("#preco").value;
 
+      dadosJson = {
+        nome: nome,
+        preco: preco
+      }
+
       await fetch("/api/produtos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, preco }),
+        body: JSON.stringify(dadosJson),
       });
 
       e.target.reset();
@@ -67,6 +78,12 @@
     document.querySelector("#pesquisa").addEventListener("input", (e) => {
       carregarProdutos(e.target.value);
     });
+
+    async function excluirProduto(id) {
+        if(!confirm("Tem certea que deseja excluir este produto?")) return;
+        await fetch(`/api/produtos/${id}`, {method: "DELETE"});
+        carregarProdutos();
+    }
 
     carregarProdutos();
   </script>

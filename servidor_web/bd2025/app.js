@@ -54,6 +54,16 @@ app.get("/api/produtos", (req, res) => {
   );
 });
 
+app.delete("/api/produtos/:id", (req, res) => {
+    const { id } = req.params;
+    db.run("DELETE FROM produtos WHERE id = ?", [id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao deletar produto" });
+    }
+    res.json({ deleted: this.changes > 0 });
+    });
+})
+
 // Inicia servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
