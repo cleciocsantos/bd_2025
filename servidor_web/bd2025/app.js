@@ -62,7 +62,18 @@ app.delete("/api/produtos/:id", (req, res) => {
     }
     res.json({ deleted: this.changes > 0 });
     });
-})
+});
+
+app.put("/api/produtos/:id", (req, res) => {
+    const { id } = req.params;
+    const {nome, preco} = req.body;
+    db.run("UPDATE produtos SET nome = ?, preco = ? WHERE id = ?", [nome, preco, id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao deletar produto" });
+    }
+    res.json({ deleted: this.changes > 0 });
+    });
+});
 
 // Inicia servidor
 app.listen(PORT, () => {
