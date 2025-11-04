@@ -25,7 +25,7 @@
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;
-      width: 300px;
+      width: 200px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       text-align: left;
       animation: fadeIn 0.3s ease;
@@ -45,6 +45,7 @@
   </style>
 </head>
 <body>
+  <a href="categorias.html">Gerenciar Categorias</a>
   <h1>Cadastro de Produtos</h1>
 
   <form id="formProduto">
@@ -73,10 +74,10 @@
       <h2>Editar Produto</h2>
       <form id="formEditar">
         <input type="hidden" id="editId" />
-        <label>Nome:</label>
-        <input type="text" id="editNome" required />
-        <label>Preço:</label>
-        <input type="number" id="editPreco" required step="0.01" />
+        <label>Nome:</label><br>
+        <input type="text" id="editNome" required /><br>
+        <label>Preço:</label><br>
+        <input type="number" id="editPreco" required step="0.01" /><br>
         <button type="submit">Salvar</button>
       </form>
 
@@ -145,6 +146,10 @@
     }
 
     fecharModal.onclick = () => modal.style.display = "none";
+
+    window.onclick = e => {
+    if (e.target == modal) modal.style.display = "none";
+  };
 
     document.querySelector("#formEditar").addEventListener("submit", async (e) => {
       e.preventDefault();

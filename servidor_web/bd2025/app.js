@@ -22,6 +22,13 @@ db.run(`
   )
 `);
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS categorias (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL
+  )
+`);
+
 // Rota para cadastrar produto
 app.post("/api/produtos", (req, res) => {
   const { nome, preco } = req.body;
