@@ -31,17 +31,17 @@ db.run(`
 
 // Rota para cadastrar produto
 app.post("/api/produtos", (req, res) => {
-  const { nome, preco } = req.body;
-  if (!nome || !preco) {
-    return res.status(400).json({ error: "Nome e preço são obrigatórios" });
+  const { nome, preco, categoria_id } = req.body;
+  if (!nome || !preco || !categoria_id) {
+    return res.status(400).json({ error: "Nome, preço e categoria são obrigatórios" });
   }
 
-  const stmt = db.prepare("INSERT INTO produtos (nome, preco) VALUES (?, ?)");
-  stmt.run(nome, preco, function (err) {
+  const stmt = db.prepare("INSERT INTO produtos (nome, preco, categoria_id) VALUES (?, ?, ?)");
+  stmt.run(nome, preco, categoria_id, function (err) {
     if (err) {
       return res.status(500).json({ error: "Erro ao inserir produto" });
     }
-    res.json({ id: this.lastID, nome, preco });
+    res.json({ id: this.lastID, nome, preco, categoria_id });
   });
   stmt.finalize();
 });
@@ -49,11 +49,19 @@ app.post("/api/produtos", (req, res) => {
 // Rota para listar produtos (com filtro opcional por nome)
 app.get("/api/produtos", (req, res) => {
   const filtro = req.query.nome ? `%${req.query.nome}%` : "%";
+  let sql = `
+    SELECT p.id, p.nome, p.preco, c.nome as categoria
+    FROM produtos p
+    INNER JOIN categorias c
+    ON p.categoria_id = c.id
+    WHERE p.nome LIKE ? ORDER BY p.id DESC
+  ` ;
   db.all(
-    "SELECT * FROM produtos WHERE nome LIKE ? ORDER BY id DESC",
+    sql,
     [filtro],
     (err, rows) => {
       if (err) {
+        console.log(err);
         return res.status(500).json({ error: "Erro ao consultar produtos" });
       }
       res.json(rows);

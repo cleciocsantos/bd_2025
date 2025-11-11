@@ -65,6 +65,10 @@
     <input type="text" id="nome" required />
     <label>Preço:</label>
     <input type="number" id="preco" required step="0.01" />
+    <label>Categoria:</label>
+    <select id="categoria" required>
+      <option value="" disabled>Selecione a categoria</option>
+    </select>
     <button type="submit">Cadastrar</button>
   </form>
 
@@ -75,7 +79,7 @@
 
   <table id="tabela">
     <thead>
-      <tr><th>ID</th><th>Nome</th><th>Preço (R$)</th><th>Opções</th></tr>
+      <tr><th>ID</th><th>Nome</th><th>Preço (R$)</th><th>Categorias</th><th>Opções</th></tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -97,6 +101,20 @@
   </div>
 
   <script>
+    async function carregarCategorias() {
+      const res = await fetch(`/api/categorias`);
+      const categorias = await res.json();
+      const select = document.querySelector("#categoria");
+
+      categorias.forEach(c => {
+        const option = document.createElement("option");
+        option.value = c.id;
+        option.text = c.nome;
+        select.appendChild(option);
+      });
+    }
+    carregarCategorias();
+
     async function carregarProdutos(filtro = "") {
       const res = await fetch(`/api/produtos?nome=${encodeURIComponent(filtro)}`);
       const produtos = await res.json();
@@ -109,6 +127,7 @@
         <td>${p.id}</td>
         <td>${p.nome}</td>
         <td>${p.preco.toFixed(2)}</td>
+        <td>${p.categoria}</td>
         <td>
             <button onclick="abrirModal(${p.id}, '${p.nome}', ${p.preco})">Editar</button>
             <button onclick="excluirProduto(${p.id})">Excluir</button>
@@ -121,10 +140,12 @@
       e.preventDefault();
       const nome = document.querySelector("#nome").value;
       const preco = document.querySelector("#preco").value;
-
+      const categoria_id = document.querySelector("#categoria").value;
+      
       dadosJson = {
         nome: nome,
-        preco: preco
+        preco: preco,
+        categoria_id :categoria_id
       }
 
       await fetch("/api/produtos", {
