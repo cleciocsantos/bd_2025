@@ -76,9 +76,62 @@ app.put("/api/produtos/:id", (req, res) => {
     const {nome, preco} = req.body;
     db.run("UPDATE produtos SET nome = ?, preco = ? WHERE id = ?", [nome, preco, id], function (err) {
     if (err) {
-      return res.status(500).json({ error: "Erro ao deletar produto" });
+      return res.status(500).json({ error: "Erro ao atualizar produto" });
+    }
+    res.json({ updated: this.changes > 0 });
+    });
+});
+
+// Rota para cadastrar categorias
+app.post("/api/categorias", (req, res) => {
+  const { nome } = req.body;
+  if (!nome) {
+    return res.status(400).json({ error: "Nome é obrigatório" });
+  }
+
+  const stmt = db.prepare("INSERT INTO categorias (nome) VALUES (?)");
+  stmt.run(nome, function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao inserir categoria" });
+    }
+    res.json({ id: this.lastID, nome });
+  });
+  stmt.finalize();
+});
+
+// Rota para listar categorias (com filtro opcional por nome)
+app.get("/api/categorias", (req, res) => {
+  const filtro = req.query.nome ? `%${req.query.nome}%` : "%";
+  db.all(
+    "SELECT * FROM categorias WHERE nome LIKE ? ORDER BY id DESC",
+    [filtro],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: "Erro ao consultar categorias" });
+      }
+      res.json(rows);
+    }
+  );
+});
+
+app.delete("/api/categorias/:id", (req, res) => {
+    const { id } = req.params;
+    db.run("DELETE FROM categorias WHERE id = ?", [id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao deletar categoria" });
     }
     res.json({ deleted: this.changes > 0 });
+    });
+});
+
+app.put("/api/categorias/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome } = req.body;
+    db.run("UPDATE categorias SET nome = ? WHERE id = ?", [nome, id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Erro ao atualizar categoria" });
+    }
+    res.json({ updated: this.changes > 0 });
     });
 });
 
