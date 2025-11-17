@@ -50,7 +50,7 @@ app.post("/api/produtos", (req, res) => {
 app.get("/api/produtos", (req, res) => {
   const filtro = req.query.nome ? `%${req.query.nome}%` : "%";
   let sql = `
-    SELECT p.id, p.nome, p.preco, c.nome as categoria
+    SELECT p.id, p.nome, p.preco, c.nome as categoria, c.id as id_categoria
     FROM produtos p
     INNER JOIN categorias c
     ON p.categoria_id = c.id

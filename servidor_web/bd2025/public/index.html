@@ -93,7 +93,10 @@
         <label>Nome:</label><br>
         <input type="text" id="editNome" required /><br>
         <label>Preço:</label><br>
-        <input type="number" id="editPreco" required step="0.01" /><br><br>
+        <input type="number" id="editPreco" required step="0.01" /><br>
+        <select id="editCategoria" required>
+          <option value="" disabled>Selecione a categoria</option>
+        </select><br><br>
         <button type="submit">Salvar</button>
       </form>
 
@@ -105,12 +108,17 @@
       const res = await fetch(`/api/categorias`);
       const categorias = await res.json();
       const select = document.querySelector("#categoria");
+      const select2 = document.querySelector("#editCategoria");
 
       categorias.forEach(c => {
         const option = document.createElement("option");
+        const option2 = document.createElement("option");
         option.value = c.id;
         option.text = c.nome;
+        option2.value = c.id;
+        option2.text = c.nome;
         select.appendChild(option);
+        select2.appendChild(option2);
       });
     }
     carregarCategorias();
@@ -129,7 +137,7 @@
         <td>${p.preco.toFixed(2)}</td>
         <td>${p.categoria}</td>
         <td>
-            <button onclick="abrirModal(${p.id}, '${p.nome}', ${p.preco})">Editar</button>
+            <button onclick="abrirModal(${p.id}, '${p.nome}', ${p.preco}, ${p.id_categoria})">Editar</button>
             <button onclick="excluirProduto(${p.id})">Excluir</button>
         </td>`;
         tbody.appendChild(row);
@@ -171,10 +179,11 @@
     const modal = document.getElementById("modal");
     const fecharModal = document.getElementById("fecharModal");
 
-    function abrirModal(id, nome, preco){
+    function abrirModal(id, nome, preco, id_categoria){
       document.getElementById("editId").value = id;
       document.getElementById("editNome").value = nome;
       document.getElementById("editPreco").value = preco;
+      document.getElementById("editCategoria").value = id_categoria;
       modal.style.display = "flex";
     }
 
