@@ -103,7 +103,7 @@
         const row = document.createElement("tr");
         row.innerHTML = `
         <td>${c.id}</td>
-        <td>${c.nome}</td>
+        <td><a href="produtos/${c.id}" target="_blank"> ${c.nome}</a></td>
         <td>
             <button onclick="abrirModal(${c.id}, '${c.nome}')">Editar</button>
             <button onclick="excluirCategoria(${c.id})">Excluir</button>

@@ -10,6 +10,46 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
+// Set the directory where templates are located
+app.set('views', './views');
+
+// Route that renders a template
+app.get('/produtos/:id_categoria', (req, res) => {
+  const { id_categoria } = req.params;
+  console.log("Entrou na categoria: ", id_categoria);
+  produtos = [];
+  let sql = `
+    SELECT p.id, p.nome, p.preco, c.nome as categoria
+    FROM produtos p
+    INNER JOIN categorias c
+    ON p.categoria_id = c.id
+    WHERE c.id = ? 
+    ORDER BY p.id DESC
+  ` ;
+  db.all(
+    sql,
+    [id_categoria],
+    (err, rows) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Erro ao consultar produtos" });
+      }
+      produtos = rows;
+    }
+  );
+  const data = {
+    title: `Produtos da categoria ${id_categoria}`,
+    message: 'Bem-vindos à DS202!',
+    items: produtos
+  };
+
+  // Renders the views/index.ejs template
+  res.render('produtos', data);
+});
+
 // Conexão com o banco de dados
 const db = new sqlite3.Database("./database.db");
 
