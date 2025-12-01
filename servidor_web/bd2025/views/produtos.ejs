@@ -2,16 +2,34 @@
 <html>
 <head>
   <title><%= title %></title>
+  <style>
+    body { font-family: Arial; margin: 30px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
+    th { background: #eee; }
+  </style>
 </head>
 <body>
   <h1><%= title %></h1>
-  <p><%= message %></p>
-
-  <h2>Conteúdo:</h2>
-  <ul>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Categoria</th>
+      </tr>
+    </thead>
+    <tbody>
     <% items.forEach(function(item) { %>
-      <li><%= item %></li>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.nome %></td>
+          <td><%= item.preco.toFixed(2) %></td>
+          <td><%= item.categoria %></td>
+        </tr>
     <% }); %>
-  </ul>
+    </tbody>
+  </table>
 </body>
 </html>

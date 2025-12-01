@@ -19,8 +19,6 @@ app.set('views', './views');
 // Route that renders a template
 app.get('/produtos/:id_categoria', (req, res) => {
   const { id_categoria } = req.params;
-  console.log("Entrou na categoria: ", id_categoria);
-  produtos = [];
   let sql = `
     SELECT p.id, p.nome, p.preco, c.nome as categoria
     FROM produtos p
@@ -37,17 +35,17 @@ app.get('/produtos/:id_categoria', (req, res) => {
         console.log(err);
         return res.status(500).json({ error: "Erro ao consultar produtos" });
       }
-      produtos = rows;
-    }
-  );
-  const data = {
-    title: `Produtos da categoria ${id_categoria}`,
-    message: 'Bem-vindos à DS202!',
-    items: produtos
-  };
+      
+      titulo = rows.length > 0 ? `Produtos da categoria ${rows[0].categoria}` : 'Não há produtos nesta categoria';
+      const data = {
+        title: titulo,
+        items: rows
+      };
 
-  // Renders the views/index.ejs template
-  res.render('produtos', data);
+      // Renders the views/index.ejs template
+      res.render('produtos', data);
+        }
+      );
 });
 
 // Conexão com o banco de dados
