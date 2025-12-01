@@ -198,10 +198,12 @@
       const id = document.querySelector("#editId").value;
       const nome = document.querySelector("#editNome").value;
       const preco = document.querySelector("#editPreco").value;
+      const categoria_id = document.querySelector("#editCategoria").value;
 
       dadosJson = {
         nome: nome,
-        preco: preco
+        preco: preco,
+        categoria_id: categoria_id
       }
 
       await fetch(`/api/produtos/${id}`, {

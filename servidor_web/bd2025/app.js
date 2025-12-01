@@ -119,8 +119,8 @@ app.delete("/api/produtos/:id", (req, res) => {
 
 app.put("/api/produtos/:id", (req, res) => {
     const { id } = req.params;
-    const {nome, preco} = req.body;
-    db.run("UPDATE produtos SET nome = ?, preco = ? WHERE id = ?", [nome, preco, id], function (err) {
+    const {nome, preco, categoria_id} = req.body;
+    db.run("UPDATE produtos SET nome = ?, preco = ?, categoria_id = ? WHERE id = ?", [nome, preco, categoria_id, id], function (err) {
     if (err) {
       return res.status(500).json({ error: "Erro ao atualizar produto" });
     }
@@ -149,10 +149,17 @@ app.post("/api/categorias", (req, res) => {
 app.get("/api/categorias", (req, res) => {
   const filtro = req.query.nome ? `%${req.query.nome}%` : "%";
   db.all(
-    "SELECT * FROM categorias WHERE nome LIKE ? ORDER BY id DESC",
+    `SELECT c.id, c.nome, COUNT(p.id) as qtdprodutos
+    FROM categorias c
+    LEFT JOIN produtos p on c.id = p.categoria_id 
+    WHERE c.nome LIKE ?
+    GROUP BY c.id 
+    ORDER BY c.id DESC    
+    `,
     [filtro],
     (err, rows) => {
       if (err) {
+        console.log(err);
         return res.status(500).json({ error: "Erro ao consultar categorias" });
       }
       res.json(rows);

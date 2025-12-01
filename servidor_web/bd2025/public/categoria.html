@@ -73,7 +73,7 @@
 
   <table id="tabela">
     <thead>
-      <tr><th>ID</th><th>Nome</th><th>Opções</th></tr>
+      <tr><th>ID</th><th>Nome</th><th>Quantidade de Produtos</th><th>Opções</th></tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -104,6 +104,7 @@
         row.innerHTML = `
         <td>${c.id}</td>
         <td><a href="produtos/${c.id}" target="_blank"> ${c.nome}</a></td>
+        <td>${c.qtdprodutos}</td>
         <td>
             <button onclick="abrirModal(${c.id}, '${c.nome}')">Editar</button>
             <button onclick="excluirCategoria(${c.id})">Excluir</button>
