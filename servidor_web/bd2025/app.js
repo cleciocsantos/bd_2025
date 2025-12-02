@@ -16,6 +16,9 @@ app.set('view engine', 'ejs');
 // Set the directory where templates are located
 app.set('views', './views');
 
+// Conexão com o banco de dados
+const db = new sqlite3.Database("./database.db");
+
 // Route that renders a template
 app.get('/produtos/:id_categoria', (req, res) => {
   const { id_categoria } = req.params;
@@ -47,25 +50,6 @@ app.get('/produtos/:id_categoria', (req, res) => {
         }
       );
 });
-
-// Conexão com o banco de dados
-const db = new sqlite3.Database("./database.db");
-
-// Cria tabela se não existir
-db.run(`
-  CREATE TABLE IF NOT EXISTS produtos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT NOT NULL,
-    preco REAL NOT NULL
-  )
-`);
-
-db.run(`
-  CREATE TABLE IF NOT EXISTS categorias (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome TEXT NOT NULL
-  )
-`);
 
 // Rota para cadastrar produto
 app.post("/api/produtos", (req, res) => {
